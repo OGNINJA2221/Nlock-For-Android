@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">N Lock</string>
+    <string name="app_tagline">Simple. Secure. Personal.</string>
+    <string name="accessibility_service_desc">N Lock Accessibility Service enables instant, seamless detection of protected applications to safeguard your privacy before sensitive content appears.</string>
+    <string name="fake_crash_title">Unfortunately, %1$s has stopped working.</string>
+    <string name="fake_crash_close">Close app</string>
+    <string name="fake_crash_report">Report problem</string>
+</resources>
