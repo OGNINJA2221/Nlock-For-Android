@@ -462,9 +462,9 @@ fun DashboardScreen(
                 val weeklyGoalMins = preferences.weeklyScreenTimeGoalMinutes
                 val dailyGoalMins = weeklyGoalMins / 7f
                 val dailyFormatted = if (dailyGoalMins >= 60f) {
-                    String.format("%.1f hrs/day", dailyGoalMins / 60f)
+                    String.format(Locale.getDefault(), "%.1f hrs/day", dailyGoalMins / 60f)
                 } else {
-                    String.format("%.1f mins/day", dailyGoalMins)
+                    String.format(Locale.getDefault(), "%.1f mins/day", dailyGoalMins)
                 }
 
                 GlassCard(

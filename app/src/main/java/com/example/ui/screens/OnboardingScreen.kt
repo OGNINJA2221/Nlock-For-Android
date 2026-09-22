@@ -189,7 +189,7 @@ fun OnboardingScreen(
                             pinSetupError = false
                             lockSetupDone = false
                         },
-                        enteredPin = enteredPin,
+                        enteredPin = if (isConfirmingPin) confirmedPin else enteredPin,
                         isConfirmingPin = isConfirmingPin,
                         pinSetupError = pinSetupError,
                         onPinDigit = { digit ->
@@ -630,7 +630,7 @@ private fun OnboardingLockSetupPage(
                     Spacer(modifier = Modifier.height(8.dp))
                     PinDotsDisplay(
                         pinLength = targetPinLen,
-                        enteredCount = if (isConfirmingPin) 0 else enteredPin.length,
+                        enteredCount = enteredPin.length,
                         isError = pinSetupError
                     )
                     PinKeypad(

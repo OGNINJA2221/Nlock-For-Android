@@ -46,6 +46,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.Lifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -96,6 +98,10 @@ fun ScreenTimeManagerScreen(
     }
 
     LaunchedEffect(Unit) {
+        refreshStats()
+    }
+
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         refreshStats()
     }
 
@@ -436,8 +442,46 @@ fun ScreenTimeManagerScreen(
                         }
 
                         // App Breakdown Items
-                        items(currentSummary.appBreakdown) { app ->
-                            AppUsageRow(app = app)
+                        if (currentSummary.appBreakdown.isEmpty()) {
+                            item {
+                                GlassCard(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 8.dp)
+                                ) {
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 20.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.HourglassBottom,
+                                            contentDescription = null,
+                                            tint = GlassAccentCyan.copy(alpha = 0.6f),
+                                            modifier = Modifier.size(32.dp)
+                                        )
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        Text(
+                                            text = "No App Usage Recorded Yet",
+                                            color = Color.White,
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Spacer(modifier = Modifier.height(4.dp))
+                                        Text(
+                                            text = "As you use applications on your device, real foreground usage will appear here automatically.",
+                                            color = Color.White.copy(alpha = 0.6f),
+                                            fontSize = 12.sp,
+                                            lineHeight = 16.sp
+                                        )
+                                    }
+                                }
+                            }
+                        } else {
+                            items(currentSummary.appBreakdown) { app ->
+                                AppUsageRow(app = app)
+                            }
                         }
 
                         item {
